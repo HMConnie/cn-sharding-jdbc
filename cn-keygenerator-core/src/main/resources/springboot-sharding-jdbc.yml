@@ -1,0 +1,78 @@
+sharding:
+  jdbc:
+     datasource:
+        names: ds0,ds1,ds2
+        ds0:
+            type: org.apache.commons.dbcp.BasicDataSource
+            driver-class-name: com.mysql.jdbc.Driver # 数据库驱动类名
+            url: jdbc:mysql://localhost:3306/ds0?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=utf8 # 数据库url连接
+            username: root # 数据库用户名
+            password: 123456 # 数据库密码
+            initialSize: 10
+            maxWait: 60000
+            maxActive: 50
+            minIdle: 1
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: SELECT 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+
+        ds1:
+            type: org.apache.commons.dbcp.BasicDataSource
+            driver-class-name: com.mysql.jdbc.Driver # 数据库驱动类名
+            url: jdbc:mysql://localhost:3306/ds1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=utf8 # 数据库url连接
+            username: root # 数据库用户名
+            password: 123456 # 数据库密码
+            initialSize: 10
+            maxWait: 60000
+            maxActive: 50
+            minIdle: 1
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: SELECT 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+
+        ds2:
+            type: org.apache.commons.dbcp.BasicDataSource
+            driver-class-name: com.mysql.jdbc.Driver # 数据库驱动类名
+            url: jdbc:mysql://localhost:3306/ds2?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=utf8 # 数据库url连接
+            username: root # 数据库用户名
+            password: 123456 # 数据库密码
+            initialSize: 10
+            maxWait: 60000
+            maxActive: 50
+            minIdle: 1
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: SELECT 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+
+        config:
+             props:
+               sql:
+                 show: true # 是否开启SQL显示，默认值: false
+                 executor:
+                   size: 10 # 工作线程数量，默认值: CPU核数
+
+               sharding:
+                  tables: # 数据分片
+                       t_user:
+                          actual-data-nodes: ds$->{0..2}.t_user->{0..2}
+                          database-strategy: # 分库策略 4选一
+                              complex: # 用于单分片键的标准分片场景
+                                  sharding-column: user_id # 分片列名称
+                                  algorithm-class-name: cn.keygenerator.core.dao.strategy.ReReComplexShardingDB # 复合分片算法类名称。
+
+                          table-strategy: # 分表策略
+                              complex: # 用于多分片键的复合分片场景
+                                  sharding-columns: user_id # 分片列名称，多个列以逗号分隔
+                                  algorithm-class-name: cn.keygenerator.core.dao.strategy.ReReComplexShardingTB # 复合分片算法类名称。该类需实现ComplexKeysShardingAlgorithm接口并提供无参数的构造器

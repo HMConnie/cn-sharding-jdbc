@@ -1,0 +1,113 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:sharding="http://shardingsphere.io/schema/shardingsphere/sharding"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+                        http://shardingsphere.io/schema/shardingsphere/sharding
+                        http://shardingsphere.io/schema/shardingsphere/sharding/sharding.xsd">
+    <context:annotation-config/>
+
+
+    <bean id="ds_0" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/ds0?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="maxActive" value="50"/>
+        <property name="initialSize" value="10"/>
+        <property name="maxWait" value="60000"/>
+        <property name="minIdle" value="1"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+    </bean>
+
+    <bean id="ds_1" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/ds1?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="maxActive" value="50"/>
+        <property name="initialSize" value="10"/>
+        <property name="maxWait" value="60000"/>
+        <property name="minIdle" value="1"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+    </bean>
+    <bean id="ds_2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/ds2?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+        <property name="maxActive" value="50"/>
+        <property name="initialSize" value="10"/>
+        <property name="maxWait" value="60000"/>
+        <property name="minIdle" value="1"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="poolPreparedStatements" value="true"/>
+    </bean>
+
+    <bean id="preciseModuloDatabaseShardingAlgorithm" class="cn.keygenerator.core.strategy.ReReComplexShardingDB"/>
+    <bean id="preciseModuloTableShardingAlgorithm" class="cn.keygenerator.core.strategy.ReReComplexShardingTB"/>
+
+    <sharding:complex-strategy id="userDatabaseShardingStrategy" sharding-columns="user_id"
+                               algorithm-ref="preciseModuloDatabaseShardingAlgorithm"/>
+    <sharding:complex-strategy id="userTableShardingStrategy" sharding-columns="user_id"
+                               algorithm-ref="preciseModuloTableShardingAlgorithm"/>
+
+
+    <sharding:data-source id="shardingDataSource">
+
+        <sharding:sharding-rule data-source-names="ds_0, ds_1, ds_2">
+            <sharding:table-rules>
+                <sharding:table-rule logic-table="t_user" actual-data-nodes="ds_$->{0..2}.t_user_$->{0..2}"
+                                     database-strategy-ref="userDatabaseShardingStrategy"
+                                     table-strategy-ref="userTableShardingStrategy"/>
+            </sharding:table-rules>
+        </sharding:sharding-rule>
+    </sharding:data-source>
+
+
+    <bean id="shardingSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="shardingDataSource"/>
+        <property name="typeAliasesPackage" value="cn.keygenerator.core.dao.entity"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.keygenerator.core.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="shardingSqlSessionFactory"/>
+
+    </bean>
+
+    <tx:annotation-driven/>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="shardingDataSource"/>
+    </bean>
+
+</beans>

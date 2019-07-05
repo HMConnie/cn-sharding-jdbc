@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.keygenerator.core</groupId>
+    <artifactId>cn-keygenerator-core</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven_compiler_plugin_version>2.3.2</maven_compiler_plugin_version>
+        <java_source_version>1.8</java_source_version>
+        <java_target_version>1.8</java_target_version>
+        <file_encoding>UTF-8</file_encoding>
+        <maven_source_plugin_version>2.1.1</maven_source_plugin_version>
+        <maven_jar_plugin_version>2.3.2</maven_jar_plugin_version>
+        <maven_war_plugin_version>2.1.1</maven_war_plugin_version>
+        <maven_install_plugin_version>2.3.1</maven_install_plugin_version>
+        <maven_deploy_plugin_version>2.7</maven_deploy_plugin_version>
+        <maven_resources_plugin_version>2.4</maven_resources_plugin_version>
+
+        <spring_version>4.3.16.RELEASE</spring_version>
+        <slf4j_log4j_version>1.7.5</slf4j_log4j_version>
+        <mysql_connector_java_version>5.1.38</mysql_connector_java_version>
+        <junit_version>4.11</junit_version>
+        <zkClient_version>0.1</zkClient_version>
+        <dubbo_version>2.6.2</dubbo_version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring_boot_version>1.2.5.RELEASE</spring_boot_version>
+        <fastjson_version>1.2.14</fastjson_version>
+        <zookeeper_version>3.4.6</zookeeper_version>
+        <slf4j_log4j_version>1.7.21</slf4j_log4j_version>
+        <mybatis_spring_version>1.2.2</mybatis_spring_version>
+        <mybatis_version>3.2.2</mybatis_version>
+        <commons_dbcp_version>1.4</commons_dbcp_version>
+        <aspectjrt_version>1.8.9</aspectjrt_version>
+        <cglib_version>2.1_3</cglib_version>
+        <commons_codec_version>1.10</commons_codec_version>
+        <dui1dui_commons_long_version></dui1dui_commons_long_version>
+        <dui1dui_mq_version>0.0.2-SNAPSHOT</dui1dui_mq_version>
+        <sharding-sphere.version>3.1.0.M1</sharding-sphere.version>
+        <sharding-sphere-xa.version>4.0.0-RC1</sharding-sphere-xa.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons_codec_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectjrt_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql_connector_java_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${commons_dbcp_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis_spring_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring_version}</version>
+        </dependency>
+
+        <!-- dubbo start -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>${dubbo_version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>${zkClient_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>${zookeeper_version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- dubbo end -->
+
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring_boot_version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring_boot_version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-redis</artifactId>
+            <version>${spring_boot_version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-aop</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <!-- slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+        <!-- logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.9</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8</version>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0-alpha-1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sgcai</groupId>
+            <artifactId>zookeeper-lib</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sgcai</groupId>
+            <artifactId>config-center-client</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.easemob</groupId>
+            <artifactId>rest-java-sdk</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>java-emoji-converter</artifactId>
+            <version>0.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-core</artifactId>
+            <version>${sharding-sphere.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>${sharding-sphere.version}</version>
+        </dependency>
+
+        <!-- for spring namespace -->
+        <dependency>
+            <groupId>io.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-namespace</artifactId>
+            <version>${sharding-sphere.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>6.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.keygenerator.common</groupId>
+            <artifactId>cn-keygenerator-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>cn-keygenerator-core</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.5</version>
+                <configuration>
+                    <!--配置文件的位置-->
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.45</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.zxg</groupId>
+                        <artifactId>mybatis-generator-plugin</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

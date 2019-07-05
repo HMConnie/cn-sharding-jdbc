@@ -1,0 +1,65 @@
+dataSources:
+  ds0: !!org.apache.commons.dbcp.BasicDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ds0?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=utf8 # 数据库url连接
+    username: root
+    password: 123456
+    initialSize: 10
+    maxWait: 60000
+    maxActive: 50
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+  ds1: !!org.apache.commons.dbcp.BasicDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ds1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=utf8 # 数据库url连接
+    username: root
+    password: 123456
+    initialSize: 10
+    maxWait: 60000
+    maxActive: 50
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+  ds2: !!org.apache.commons.dbcp.BasicDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ds2?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&characterEncoding=utf8 # 数据库url连接
+    username: root
+    password: 123456
+    initialSize: 10
+    maxWait: 60000
+    maxActive: 50
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+shardingRule:
+  tables:
+    t_user:
+      actualDataNodes: ds${0..2}.t_user${0..2}
+      databaseStrategy:
+        complex:
+          shardingColumns: user_id
+          algorithmClassName: cn.keygenerator.core.dao.strategy.ReReComplexShardingDB
+
+      tableStrategy:
+        complex:
+          shardingColumns: user_id
+          algorithmClassName: cn.keygenerator.core.dao.strategy.ReReComplexShardingTB

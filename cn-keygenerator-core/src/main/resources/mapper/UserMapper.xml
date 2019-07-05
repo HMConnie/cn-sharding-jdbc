@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.keygenerator.core.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="cn.keygenerator.core.entity.User">
+        <id column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, nick_name
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="cn.keygenerator.core.entity.User">
+    insert into t_user (user_id, nick_name)
+    values (#{userId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.keygenerator.core.entity.User">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.keygenerator.core.entity.User">
+        update t_user
+        <set>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.keygenerator.core.entity.User">
+    update t_user
+    set nick_name = #{nickName,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+    <select id="lockSelectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where user_id = #{userId,jdbcType=VARCHAR}
+        for update
+    </select>
+</mapper>
