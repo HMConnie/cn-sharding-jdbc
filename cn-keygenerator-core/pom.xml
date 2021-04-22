@@ -31,7 +31,7 @@
         <zookeeper_version>3.4.6</zookeeper_version>
         <slf4j_log4j_version>1.7.21</slf4j_log4j_version>
         <mybatis_spring_version>1.2.2</mybatis_spring_version>
-        <mybatis_version>3.2.2</mybatis_version>
+        <mybatis_version>3.5.6</mybatis_version>
         <commons_dbcp_version>1.4</commons_dbcp_version>
         <aspectjrt_version>1.8.9</aspectjrt_version>
         <cglib_version>2.1_3</cglib_version>
