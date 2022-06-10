@@ -24,7 +24,7 @@
         <mysql_connector_java_version>5.1.38</mysql_connector_java_version>
         <junit_version>4.11</junit_version>
         <zkClient_version>0.1</zkClient_version>
-        <dubbo_version>2.6.2</dubbo_version>
+        <dubbo_version>2.6.12</dubbo_version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring_boot_version>1.2.5.RELEASE</spring_boot_version>
         <fastjson_version>1.2.14</fastjson_version>
