@@ -28,7 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring_boot_version>1.2.5.RELEASE</spring_boot_version>
         <fastjson_version>1.2.14</fastjson_version>
-        <zookeeper_version>3.4.6</zookeeper_version>
+        <zookeeper_version>3.4.14</zookeeper_version>
         <slf4j_log4j_version>1.7.21</slf4j_log4j_version>
         <mybatis_spring_version>1.2.2</mybatis_spring_version>
         <mybatis_version>3.2.2</mybatis_version>
